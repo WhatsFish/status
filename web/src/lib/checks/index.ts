@@ -4,7 +4,8 @@ import type { CheckBundle } from "@/types/check";
 
 import { diskUsage, memory, swap, loadavg, uptime } from "./host";
 import { tlsExpiry } from "./tls";
-import { digestFreshness, digestCompleteness, cronPulse } from "./ai-feed";
+import { digestFreshness, digestCompleteness } from "./ai-feed";
+import { cronChecks } from "./cron";
 import { hysteriaPipeline, activeConnections } from "./vpn";
 import {
   aiFeedHttp,
@@ -34,7 +35,8 @@ const CHECKS: CheckFn[] = [
   aiFeedHttp,
   digestFreshness,
   digestCompleteness,
-  cronPulse,
+  // cron heartbeats — per-job freshness from $HEARTBEAT_DIR/<job>
+  ...cronChecks,
   // vpn
   hysteriaPipeline,
   activeConnections,

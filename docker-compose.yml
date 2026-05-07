@@ -6,15 +6,15 @@ services:
     env_file: .env
     environment:
       DIGEST_DIR: /data/ai-feed/digest
-      AI_FEED_CRON_LOG: /data/ai-feed/cron.log
       GOACCESS_REPORT: /data/goaccess/index.html
+      HEARTBEAT_DIR: /data/heartbeats
       PG_HOST: db
       PG_PORT: "5432"
     volumes:
       # Read-only views into the host paths the checks need to inspect.
       - /home/liharr/src/ai-feed/digest:/data/ai-feed/digest:ro
-      - /home/liharr/src/ai-feed/cron.log:/data/ai-feed/cron.log:ro
       - /home/liharr/src/traffic-monitor/goaccess/report/index.html:/data/goaccess/index.html:ro
+      - /home/liharr/.local/share/cron-heartbeats:/data/heartbeats:ro
     ports:
       - "127.0.0.1:3004:3000"
 

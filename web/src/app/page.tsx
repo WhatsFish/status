@@ -9,6 +9,7 @@ export const revalidate = 60;
 const GROUP_ORDER = [
   "host",
   "tls",
+  "cron",
   "ai-feed",
   "vpn",
   "ai-playground",
@@ -20,6 +21,7 @@ const GROUP_ORDER = [
 const GROUP_LABEL: Record<string, string> = {
   host: "Host",
   tls: "TLS",
+  cron: "Cron jobs",
   "ai-feed": "ai-feed",
   vpn: "VPN (Hysteria + monitor)",
   "ai-playground": "ai-playground",
