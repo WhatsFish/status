@@ -53,7 +53,7 @@ export default async function StatusPage() {
   const generated = new Date(summary.generatedAt);
 
   return (
-    <main className="max-w-3xl mx-auto px-5 py-12">
+    <main className="max-w-6xl mx-auto px-5 py-12">
       <header className="mb-10">
         <h1 className="text-2xl font-semibold tracking-tight mb-3">status</h1>
         <div className="flex items-center gap-2.5 mb-1">
@@ -71,9 +71,16 @@ export default async function StatusPage() {
         </p>
       </header>
 
-      <div className="space-y-8">
+      {/*
+        CSS multi-column layout: 1 column on mobile, 2 on md (≥768px), 3 on
+        xl (≥1280px). `break-inside-avoid` keeps a service group whole — it
+        won't split across two columns. The browser auto-balances column
+        heights, so groups of unequal size pack reasonably without manual
+        ordering.
+      */}
+      <div className="gap-6 columns-1 md:columns-2 xl:columns-3">
         {orderedGroups.map((g) => (
-          <section key={g}>
+          <section key={g} className="break-inside-avoid mb-6">
             <h2 className="text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-500 mb-2">
               {GROUP_LABEL[g] ?? g}
             </h2>
