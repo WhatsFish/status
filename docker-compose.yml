@@ -13,6 +13,7 @@ services:
     volumes:
       # Read-only views into the host paths the checks need to inspect.
       - /home/liharr/src/ai-feed/digest:/data/ai-feed/digest:ro
+      - /home/liharr/src/ai-feed/fetch.log:/data/ai-feed/fetch.log:ro
       - /home/liharr/src/traffic-monitor/goaccess/report/index.html:/data/goaccess/index.html:ro
       - /home/liharr/.local/share/cron-heartbeats:/data/heartbeats:ro
     ports:
