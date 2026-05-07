@@ -21,7 +21,9 @@ import {
   umamiScript,
   myblogHttp,
   indexHttp,
+  costHttp,
 } from "./http";
+import { agentCostLoggingParity, recentSpend } from "./cost";
 import { recentPageviews } from "./umami";
 import { goaccessReportFreshness } from "./goaccess";
 import { pgPing } from "./postgres";
@@ -60,6 +62,10 @@ const CHECKS: CheckFn[] = [
   goaccessReportFreshness,
   // myblog
   myblogHttp,
+  // cost
+  costHttp,
+  recentSpend,
+  agentCostLoggingParity,
 ];
 
 export async function runAllChecks(): Promise<CheckBundle> {

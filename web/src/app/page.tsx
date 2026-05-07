@@ -16,6 +16,7 @@ const GROUP_ORDER = [
   "umami",
   "traffic",
   "myblog",
+  "cost",
 ];
 
 const GROUP_LABEL: Record<string, string> = {
@@ -28,6 +29,7 @@ const GROUP_LABEL: Record<string, string> = {
   umami: "Umami",
   traffic: "Traffic report",
   myblog: "Blog",
+  cost: "Cost tracker",
 };
 
 export default async function StatusPage() {
