@@ -16,6 +16,11 @@ services:
       - /home/liharr/src/ai-feed/fetch.log:/data/ai-feed/fetch.log:ro
       - /home/liharr/src/traffic-monitor/goaccess/report/index.html:/data/goaccess/index.html:ro
       - /home/liharr/.local/share/cron-heartbeats:/data/heartbeats:ro
+      # Disk-usage probes need paths that resolve to the actual host filesystems,
+      # since `/var/lib/docker` (and thus overlay2) now lives on the secondary disk.
+      # /boot is on the root disk; /data is the secondary disk.
+      - /boot:/host-root:ro
+      - /data:/host-data:ro
     ports:
       - "127.0.0.1:3004:3000"
 

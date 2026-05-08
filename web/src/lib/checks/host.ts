@@ -20,26 +20,32 @@ function fmtDuration(seconds: number): string {
 }
 
 /**
- * Disk usage of the container's root mount, which under docker overlay2
- * reports the host's underlying filesystem. Reads via `df` since it's
- * easier than parsing /proc/mounts + /sys/block.
+ * Disk usage for a given path. The container can't `df /` to inspect the host
+ * root anymore (overlay2's backing dir now lives on the secondary disk), so
+ * each disk to monitor is bind-mounted in: `/host-root` → host `/` (via /boot),
+ * `/host-data` → host `/data`.
  */
-export const diskUsage: CheckFn = async () => {
-  const { stdout } = await execAsync("df", ["-P", "/"]);
-  const line = stdout.trim().split("\n").at(-1) ?? "";
-  const parts = line.split(/\s+/);
-  // Filesystem 1024-blocks Used Available Capacity Mounted
-  const usedPct = parseFloat(parts[4]?.replace("%", "") ?? "0");
-  const avail = parts[3] ?? "?";
-  const total = parts[1] ?? "?";
-  return {
-    id: "host-disk",
-    group: "host",
-    name: "Disk usage (/)",
-    status: usedPct > 95 ? "fail" : usedPct > 80 ? "warn" : "ok",
-    detail: `${fmtPercent(usedPct)} used; ${parseInt(avail, 10) / 1024 / 1024 < 1 ? `${(parseInt(avail, 10) / 1024).toFixed(0)} MB` : `${(parseInt(avail, 10) / 1024 / 1024).toFixed(1)} GB`} free of ${(parseInt(total, 10) / 1024 / 1024).toFixed(1)} GB`,
+function makeDiskCheck(opts: { id: string; name: string; path: string }): CheckFn {
+  return async () => {
+    const { stdout } = await execAsync("df", ["-P", opts.path]);
+    const line = stdout.trim().split("\n").at(-1) ?? "";
+    const parts = line.split(/\s+/);
+    // Filesystem 1024-blocks Used Available Capacity Mounted
+    const usedPct = parseFloat(parts[4]?.replace("%", "") ?? "0");
+    const avail = parts[3] ?? "?";
+    const total = parts[1] ?? "?";
+    return {
+      id: opts.id,
+      group: "host",
+      name: opts.name,
+      status: usedPct > 95 ? "fail" : usedPct > 80 ? "warn" : "ok",
+      detail: `${fmtPercent(usedPct)} used; ${parseInt(avail, 10) / 1024 / 1024 < 1 ? `${(parseInt(avail, 10) / 1024).toFixed(0)} MB` : `${(parseInt(avail, 10) / 1024 / 1024).toFixed(1)} GB`} free of ${(parseInt(total, 10) / 1024 / 1024).toFixed(1)} GB`,
+    };
   };
-};
+}
+
+export const diskUsage = makeDiskCheck({ id: "host-disk", name: "Disk usage (/)", path: "/host-root" });
+export const dataDiskUsage = makeDiskCheck({ id: "host-disk-data", name: "Disk usage (/data)", path: "/host-data" });
 
 /** /proc is the host's, not container-namespaced (kernel pseudo-FS). */
 export const memory: CheckFn = async () => {
