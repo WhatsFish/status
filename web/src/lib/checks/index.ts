@@ -22,8 +22,14 @@ import {
   myblogHttp,
   indexHttp,
   costHttp,
+  stockHttp,
 } from "./http";
 import { agentCostLoggingParity, recentSpend } from "./cost";
+import {
+  stockPriceFreshness,
+  stockPredictionFreshness,
+  stockAgentLoggingParity,
+} from "./stock";
 import { recentPageviews } from "./umami";
 import { goaccessReportFreshness } from "./goaccess";
 import { pgPing } from "./postgres";
@@ -66,6 +72,11 @@ const CHECKS: CheckFn[] = [
   costHttp,
   recentSpend,
   agentCostLoggingParity,
+  // stock
+  stockHttp,
+  stockPriceFreshness,
+  stockPredictionFreshness,
+  stockAgentLoggingParity,
 ];
 
 export async function runAllChecks(): Promise<CheckBundle> {

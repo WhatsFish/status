@@ -40,3 +40,4 @@ export const umamiScript = probe("umami-script", "umami", "Tracking script (/uma
 export const myblogHttp = probe("myblog-http", "myblog", "Blog (/myblog)", "/myblog/");
 export const indexHttp = probe("index-http", "host", "Service catalog (/)", "/");
 export const costHttp = probe("cost-http", "cost", "Dashboard (/cost)", "/cost");
+export const stockHttp = probe("stock-http", "stock", "Dashboard (/stock)", "/stock");
