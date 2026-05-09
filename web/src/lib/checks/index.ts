@@ -24,6 +24,7 @@ import {
   indexHttp,
   costHttp,
   stockHttp,
+  youtubeClipsHttp,
 } from "./http";
 import { agentCostLoggingParity, recentSpend } from "./cost";
 import {
@@ -31,6 +32,7 @@ import {
   stockPredictionFreshness,
   stockAgentLoggingParity,
 } from "./stock";
+import { youtubeClipsSchema } from "./youtube-clips";
 import { recentPageviews } from "./umami";
 import { goaccessReportFreshness } from "./goaccess";
 import { pgPing } from "./postgres";
@@ -81,6 +83,9 @@ const CHECKS: CheckFn[] = [
   stockPriceFreshness,
   stockPredictionFreshness,
   stockAgentLoggingParity,
+  // youtube-clips
+  youtubeClipsHttp,
+  youtubeClipsSchema,
 ];
 
 export async function runAllChecks(): Promise<CheckBundle> {

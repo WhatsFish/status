@@ -73,3 +73,4 @@ export const myblogHttp = probe("myblog-http", "myblog", "Blog (/myblog)", "/myb
 export const indexHttp = probe("index-http", "host", "Service catalog (/)", "/");
 export const costHttp = probe("cost-http", "cost", "Dashboard (/cost)", "/cost");
 export const stockHttp = probe("stock-http", "stock", "Dashboard (/stock)", "/stock");
+export const youtubeClipsHttp = probe("youtube-clips-http", "youtube-clips", "Dashboard (/youtube-clips)", "/youtube-clips");

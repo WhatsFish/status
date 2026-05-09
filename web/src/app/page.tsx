@@ -21,6 +21,7 @@ const REST_ORDER = [
   "myblog",
   "cost",
   "stock",
+  "youtube-clips",
 ];
 
 const GROUP_LABEL: Record<string, string> = {
@@ -36,6 +37,7 @@ const GROUP_LABEL: Record<string, string> = {
   myblog: "Blog",
   cost: "Cost tracker",
   stock: "Stock analyst",
+  "youtube-clips": "youtube-clips",
 };
 
 // Pulled out of their original groups into a virtual "agents" group, so all
