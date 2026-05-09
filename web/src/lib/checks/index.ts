@@ -15,6 +15,7 @@ import { cronChecks } from "./cron";
 import { hysteriaPipeline, activeConnections } from "./vpn";
 import {
   aiFeedHttp,
+  aiFeedRsshubHttp,
   aiPlaygroundHttp,
   vpnMonitorHttp,
   umamiHttp,
@@ -48,6 +49,7 @@ const CHECKS: CheckFn[] = [
   tlsExpiry,
   // ai-feed
   aiFeedHttp,
+  aiFeedRsshubHttp,
   digestFreshness,
   digestCompleteness,
   sourceFetchHealth,
