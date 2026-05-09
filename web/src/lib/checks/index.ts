@@ -25,6 +25,7 @@ import {
   costHttp,
   stockHttp,
   youtubeClipsHttp,
+  youtubeClipsPotProvider,
 } from "./http";
 import { agentCostLoggingParity, recentSpend } from "./cost";
 import {
@@ -85,6 +86,7 @@ const CHECKS: CheckFn[] = [
   stockAgentLoggingParity,
   // youtube-clips
   youtubeClipsHttp,
+  youtubeClipsPotProvider,
   youtubeClipsSchema,
 ];
 
