@@ -2,7 +2,7 @@ import type { CheckFn } from "../runner";
 import { runOne, summarize } from "../runner";
 import type { CheckBundle } from "@/types/check";
 
-import { diskUsage, dataDiskUsage, memory, swap, loadavg, uptime } from "./host";
+import { diskUsage, dataDiskUsage, videoDiskUsage, memory, swap, loadavg, uptime } from "./host";
 import { tlsExpiry } from "./tls";
 import {
   digestFreshness,
@@ -39,6 +39,7 @@ const CHECKS: CheckFn[] = [
   // host
   diskUsage,
   dataDiskUsage,
+  videoDiskUsage,
   memory,
   swap,
   loadavg,

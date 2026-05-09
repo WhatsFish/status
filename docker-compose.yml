@@ -21,6 +21,7 @@ services:
       # /boot is on the root disk; /data is the secondary disk.
       - /boot:/host-root:ro
       - /data:/host-data:ro
+      - /video:/host-video:ro
     ports:
       - "127.0.0.1:3004:3000"
 

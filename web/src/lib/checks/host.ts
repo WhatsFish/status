@@ -46,6 +46,7 @@ function makeDiskCheck(opts: { id: string; name: string; path: string }): CheckF
 
 export const diskUsage = makeDiskCheck({ id: "host-disk", name: "Disk usage (/)", path: "/host-root" });
 export const dataDiskUsage = makeDiskCheck({ id: "host-disk-data", name: "Disk usage (/data)", path: "/host-data" });
+export const videoDiskUsage = makeDiskCheck({ id: "host-disk-video", name: "Disk usage (/video)", path: "/host-video" });
 
 /** /proc is the host's, not container-namespaced (kernel pseudo-FS). */
 export const memory: CheckFn = async () => {
