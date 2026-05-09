@@ -42,6 +42,13 @@ const JOBS: Job[] = [
     failAfterMs: 48 * H,
   },
   {
+    id: "ai-feed-warm-rsshub",
+    name: "ai-feed RSSHub warmer (00:08 / 12:08 UTC)",
+    schedule: "every 12h",
+    warnAfterMs: 14 * H,
+    failAfterMs: 26 * H,
+  },
+  {
     id: "docker-builder-prune",
     name: "docker builder prune (Sun 04:37 UTC)",
     schedule: "weekly",
