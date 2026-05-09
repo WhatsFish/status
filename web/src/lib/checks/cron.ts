@@ -77,6 +77,13 @@ const JOBS: Job[] = [
     warnAfterMs: 28 * H,
     failAfterMs: 4 * D,
   },
+  {
+    id: "youtube-clips-cleanup",
+    name: "youtube-clips cleanup (05:30 UTC)",
+    schedule: "daily",
+    warnAfterMs: 28 * H,
+    failAfterMs: 48 * H,
+  },
 ];
 
 function fmtAgo(ms: number): string {
