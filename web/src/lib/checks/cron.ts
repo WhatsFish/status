@@ -84,6 +84,13 @@ const JOBS: Job[] = [
     warnAfterMs: 28 * H,
     failAfterMs: 48 * H,
   },
+  {
+    id: "youtube-clips-discover-topics",
+    name: "youtube-clips topic discovery (09:00 UTC)",
+    schedule: "daily",
+    warnAfterMs: 28 * H,
+    failAfterMs: 48 * H,
+  },
 ];
 
 function fmtAgo(ms: number): string {
