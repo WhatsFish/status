@@ -75,6 +75,7 @@ export const costHttp = probe("cost-http", "cost", "Dashboard (/cost)", "/cost")
 export const stockHttp = probe("stock-http", "stock", "Dashboard (/stock)", "/stock");
 export const youtubeClipsHttp = probe("youtube-clips-http", "youtube-clips", "Dashboard (/youtube-clips)", "/youtube-clips");
 export const quitDiaryHttp = probe("quit-diary-http", "quit-diary", "Landing (/quit-diary)", "/quit-diary");
+export const ccWebHttp = probe("cc-web-http", "cc-web", "Health (/cc-web/api/health)", "/cc-web/api/health");
 // PO-token provider keeps yt-dlp out of the bot wall on this datacenter IP.
 // If it's down, the next download from produce.py will almost certainly fail.
 export const youtubeClipsPotProvider = internalProbe(

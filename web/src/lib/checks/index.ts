@@ -27,6 +27,7 @@ import {
   youtubeClipsHttp,
   youtubeClipsPotProvider,
   quitDiaryHttp,
+  ccWebHttp,
 } from "./http";
 import { agentCostLoggingParity, recentSpend } from "./cost";
 import {
@@ -93,6 +94,8 @@ const CHECKS: CheckFn[] = [
   // quit-diary
   quitDiaryHttp,
   quitDiarySchema,
+  // cc-web
+  ccWebHttp,
 ];
 
 export async function runAllChecks(): Promise<CheckBundle> {
