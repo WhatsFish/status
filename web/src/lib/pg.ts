@@ -1,6 +1,6 @@
 import { Client, type QueryResultRow } from "pg";
 
-type DbName = "vpn" | "umami" | "cost" | "stock" | "youtube-clips";
+type DbName = "vpn" | "umami" | "cost" | "stock" | "youtube-clips" | "quit-diary";
 
 function configFor(db: DbName) {
   const host = process.env.PG_HOST ?? "db";
@@ -39,6 +39,15 @@ function configFor(db: DbName) {
       user: process.env.YOUTUBE_CLIPS_PG_USER ?? "youtube_clips",
       password: process.env.YOUTUBE_CLIPS_PG_PASSWORD ?? "",
       database: process.env.YOUTUBE_CLIPS_PG_DB ?? "youtube_clips",
+    };
+  }
+  if (db === "quit-diary") {
+    return {
+      host,
+      port,
+      user: process.env.QUIT_DIARY_PG_USER ?? "quit_diary",
+      password: process.env.QUIT_DIARY_PG_PASSWORD ?? "",
+      database: process.env.QUIT_DIARY_PG_DB ?? "quit_diary",
     };
   }
   return {

@@ -26,6 +26,7 @@ import {
   stockHttp,
   youtubeClipsHttp,
   youtubeClipsPotProvider,
+  quitDiaryHttp,
 } from "./http";
 import { agentCostLoggingParity, recentSpend } from "./cost";
 import {
@@ -34,6 +35,7 @@ import {
   stockAgentLoggingParity,
 } from "./stock";
 import { youtubeClipsSchema } from "./youtube-clips";
+import { quitDiarySchema } from "./quit-diary";
 import { recentPageviews } from "./umami";
 import { goaccessReportFreshness } from "./goaccess";
 import { pgPing } from "./postgres";
@@ -88,6 +90,9 @@ const CHECKS: CheckFn[] = [
   youtubeClipsHttp,
   youtubeClipsPotProvider,
   youtubeClipsSchema,
+  // quit-diary
+  quitDiaryHttp,
+  quitDiarySchema,
 ];
 
 export async function runAllChecks(): Promise<CheckBundle> {
