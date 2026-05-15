@@ -91,6 +91,15 @@ const JOBS: Job[] = [
     warnAfterMs: 28 * H,
     failAfterMs: 48 * H,
   },
+  {
+    id: "yc-dispatch-renders",
+    name: "youtube-clips render dispatcher (every 1 min)",
+    schedule: "every 1 min",
+    // Tolerant thresholds: this cron is silent most of the time (only
+    // touches a heartbeat). 15m without a tick = something's wrong with cron.
+    warnAfterMs: 15 * M,
+    failAfterMs: 1 * H,
+  },
 ];
 
 function fmtAgo(ms: number): string {
