@@ -100,6 +100,14 @@ const JOBS: Job[] = [
     warnAfterMs: 15 * M,
     failAfterMs: 1 * H,
   },
+  {
+    id: "yc-cleanup-stale-runs",
+    name: "youtube-clips zombie-run watchdog (every 10 min)",
+    schedule: "every 10 min",
+    // Touches heartbeat every tick. 30m without a tick = cron problem.
+    warnAfterMs: 30 * M,
+    failAfterMs: 2 * H,
+  },
 ];
 
 function fmtAgo(ms: number): string {
