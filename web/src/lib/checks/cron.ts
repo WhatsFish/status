@@ -108,6 +108,22 @@ const JOBS: Job[] = [
     warnAfterMs: 30 * M,
     failAfterMs: 2 * H,
   },
+  {
+    id: "cloudpet-tick",
+    name: "云宠物 nightly tick (12:00 UTC)",
+    schedule: "daily",
+    warnAfterMs: 28 * H,
+    failAfterMs: 48 * H,
+  },
+  {
+    id: "tg-claude",
+    name: "tg-claude bot liveness (every 1 min)",
+    schedule: "continuous",
+    // Heartbeat touched each minute only while the OpenClaw gateway
+    // (tg-claude.service) is active. No tick for 5m → bot is down.
+    warnAfterMs: 5 * M,
+    failAfterMs: 15 * M,
+  },
 ];
 
 function fmtAgo(ms: number): string {

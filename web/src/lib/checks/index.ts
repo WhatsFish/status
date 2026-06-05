@@ -27,6 +27,7 @@ import {
   youtubeClipsHttp,
   youtubeClipsPotProvider,
   quitDiaryHttp,
+  cloudpetHttp,
   ccWebHttp,
 } from "./http";
 import { agentCostLoggingParity, recentSpend } from "./cost";
@@ -37,6 +38,7 @@ import {
 } from "./stock";
 import { youtubeClipsSchema } from "./youtube-clips";
 import { quitDiarySchema } from "./quit-diary";
+import { cloudpetSchema, cloudpetTick } from "./cloudpet";
 import { recentPageviews } from "./umami";
 import { goaccessReportFreshness } from "./goaccess";
 import { pgPing } from "./postgres";
@@ -94,6 +96,10 @@ const CHECKS: CheckFn[] = [
   // quit-diary
   quitDiaryHttp,
   quitDiarySchema,
+  // cloudpet
+  cloudpetHttp,
+  cloudpetSchema,
+  cloudpetTick,
   // cc-web
   ccWebHttp,
 ];

@@ -23,6 +23,7 @@ const REST_ORDER = [
   "stock",
   "youtube-clips",
   "quit-diary",
+  "cloudpet",
   "cc-web",
 ];
 
@@ -41,6 +42,7 @@ const GROUP_LABEL: Record<string, string> = {
   stock: "Stock analyst",
   "youtube-clips": "youtube-clips",
   "quit-diary": "quit-diary",
+  "cloudpet": "云宠物",
   "cc-web": "cc-web",
 };
 
