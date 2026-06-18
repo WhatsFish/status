@@ -116,6 +116,13 @@ const JOBS: Job[] = [
     failAfterMs: 48 * H,
   },
   {
+    id: "db-backup",
+    name: "shared-DB backup all (02:30 UTC)",
+    schedule: "daily",
+    warnAfterMs: 28 * H,
+    failAfterMs: 50 * H,
+  },
+  {
     id: "tg-claude",
     name: "tg-claude bot liveness (every 1 min)",
     schedule: "continuous",
