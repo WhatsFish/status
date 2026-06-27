@@ -25,6 +25,7 @@ const REST_ORDER = [
   "quit-diary",
   "cloudpet",
   "cc-web",
+  "reno",
 ];
 
 const GROUP_LABEL: Record<string, string> = {
@@ -44,6 +45,7 @@ const GROUP_LABEL: Record<string, string> = {
   "quit-diary": "quit-diary",
   "cloudpet": "云宠物",
   "cc-web": "cc-web",
+  "reno": "装修花费",
 };
 
 // Pulled out of their original groups into a virtual "agents" group, so all

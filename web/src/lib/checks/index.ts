@@ -29,7 +29,7 @@ import {
   quitDiaryHttp,
   cloudpetHttp,
   ccWebHttp,
-} from "./http";
+  renoHttp,} from "./http";
 import { agentCostLoggingParity, recentSpend } from "./cost";
 import {
   stockPriceFreshness,
@@ -39,6 +39,7 @@ import {
 import { youtubeClipsSchema } from "./youtube-clips";
 import { quitDiarySchema } from "./quit-diary";
 import { cloudpetSchema, cloudpetTick } from "./cloudpet";
+import { renoSchema, renoRows } from "./reno";
 import { recentPageviews } from "./umami";
 import { goaccessReportFreshness } from "./goaccess";
 import { pgPing } from "./postgres";
@@ -102,6 +103,10 @@ const CHECKS: CheckFn[] = [
   cloudpetTick,
   // cc-web
   ccWebHttp,
+  // reno
+  renoHttp,
+  renoSchema,
+  renoRows,
 ];
 
 export async function runAllChecks(): Promise<CheckBundle> {

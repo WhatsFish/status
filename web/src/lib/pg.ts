@@ -1,6 +1,6 @@
 import { Client, type QueryResultRow } from "pg";
 
-type DbName = "vpn" | "umami" | "cost" | "stock" | "youtube-clips" | "quit-diary" | "cloudpet";
+type DbName = "vpn" | "umami" | "cost" | "stock" | "youtube-clips" | "quit-diary" | "cloudpet" | "reno";
 
 function configFor(db: DbName) {
   const host = process.env.PG_HOST ?? "db";
@@ -57,6 +57,15 @@ function configFor(db: DbName) {
       user: process.env.CLOUDPET_PG_USER ?? "cloudpet",
       password: process.env.CLOUDPET_PG_PASSWORD ?? "",
       database: process.env.CLOUDPET_PG_DB ?? "cloudpet",
+    };
+  }
+  if (db === "reno") {
+    return {
+      host,
+      port,
+      user: process.env.RENO_PG_USER ?? "reno_cost",
+      password: process.env.RENO_PG_PASSWORD ?? "",
+      database: process.env.RENO_PG_DB ?? "reno_cost",
     };
   }
   return {
