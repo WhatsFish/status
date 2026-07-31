@@ -56,28 +56,6 @@ const JOBS: Job[] = [
     failAfterMs: 14 * D,
   },
   {
-    id: "stock-prices",
-    name: "stock prices (Mon-Fri 22:00 UTC)",
-    schedule: "weekdays",
-    // Friday close → Monday close = ~3 days. Allow 4 before failing.
-    warnAfterMs: 28 * H,
-    failAfterMs: 4 * D,
-  },
-  {
-    id: "stock-news",
-    name: "stock news (every 4h)",
-    schedule: "every 4h",
-    warnAfterMs: 5 * H,
-    failAfterMs: 10 * H,
-  },
-  {
-    id: "stock-agent",
-    name: "stock agent (Mon-Fri 22:30 UTC)",
-    schedule: "weekdays",
-    warnAfterMs: 28 * H,
-    failAfterMs: 4 * D,
-  },
-  {
     id: "youtube-clips-cleanup",
     name: "youtube-clips cleanup (05:30 UTC)",
     schedule: "daily",

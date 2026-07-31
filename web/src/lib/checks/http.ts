@@ -72,12 +72,10 @@ export const umamiScript = probe("umami-script", "umami", "Tracking script (/uma
 export const myblogHttp = probe("myblog-http", "myblog", "Blog (/myblog)", "/myblog/");
 export const indexHttp = probe("index-http", "host", "Service catalog (/)", "/");
 export const costHttp = probe("cost-http", "cost", "Dashboard (/cost)", "/cost");
-export const stockHttp = probe("stock-http", "stock", "Dashboard (/stock)", "/stock");
 export const youtubeClipsHttp = probe("youtube-clips-http", "youtube-clips", "Dashboard (/youtube-clips)", "/youtube-clips");
 export const quitDiaryHttp = probe("quit-diary-http", "quit-diary", "Landing (/quit-diary)", "/quit-diary");
 export const cloudpetHttp = probe("cloudpet-http", "cloudpet", "Landing (/cloudpet)", "/cloudpet");
 export const renoHttp = probe("reno-http", "reno", "Login (/reno/login)", "/reno/login");
-export const ccWebHttp = probe("cc-web-http", "cc-web", "Health (/cc-web/api/health)", "/cc-web/api/health");
 // PO-token provider keeps yt-dlp out of the bot wall on this datacenter IP.
 // If it's down, the next download from produce.py will almost certainly fail.
 export const youtubeClipsPotProvider = internalProbe(

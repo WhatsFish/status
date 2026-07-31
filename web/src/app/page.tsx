@@ -20,11 +20,9 @@ const REST_ORDER = [
   "traffic",
   "myblog",
   "cost",
-  "stock",
   "youtube-clips",
   "quit-diary",
   "cloudpet",
-  "cc-web",
   "reno",
 ];
 
@@ -40,11 +38,9 @@ const GROUP_LABEL: Record<string, string> = {
   traffic: "Traffic report",
   myblog: "Blog",
   cost: "Cost tracker",
-  stock: "Stock analyst",
   "youtube-clips": "youtube-clips",
   "quit-diary": "quit-diary",
   "cloudpet": "云宠物",
-  "cc-web": "cc-web",
   "reno": "装修花费",
 };
 
@@ -52,9 +48,7 @@ const GROUP_LABEL: Record<string, string> = {
 // agent-related signals (run freshness + cost-logging parity) sit together.
 const AGENT_IDS = new Set([
   "cron-ai-feed-agent",
-  "cron-stock-agent",
   "cost-logging-parity",
-  "stock-agent-parity",
 ]);
 
 // Top chip strip: a compact value extracted from a known check's `detail` string.
@@ -71,7 +65,6 @@ const CHIPS: ChipSpec[] = [
   { id: "host-mem", label: "Mem", extract: pctChip },
   { id: "host-load", label: "Load", extract: (d) => d.match(/^[\d.]+/)?.[0] ?? "?" },
   { id: "cron-ai-feed-agent", label: "ai-feed", extract: lastSuccessChip },
-  { id: "cron-stock-agent", label: "stock", extract: lastSuccessChip },
   { id: "cost-30d", label: "30d", extract: (d) => d.match(/\$[\d.]+/)?.[0] ?? "?" },
 ];
 

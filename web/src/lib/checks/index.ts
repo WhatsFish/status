@@ -23,19 +23,12 @@ import {
   myblogHttp,
   indexHttp,
   costHttp,
-  stockHttp,
   youtubeClipsHttp,
   youtubeClipsPotProvider,
   quitDiaryHttp,
   cloudpetHttp,
-  ccWebHttp,
   renoHttp,} from "./http";
 import { agentCostLoggingParity, recentSpend } from "./cost";
-import {
-  stockPriceFreshness,
-  stockPredictionFreshness,
-  stockAgentLoggingParity,
-} from "./stock";
 import { youtubeClipsSchema } from "./youtube-clips";
 import { quitDiarySchema } from "./quit-diary";
 import { cloudpetSchema, cloudpetTick } from "./cloudpet";
@@ -85,11 +78,6 @@ const CHECKS: CheckFn[] = [
   costHttp,
   recentSpend,
   agentCostLoggingParity,
-  // stock
-  stockHttp,
-  stockPriceFreshness,
-  stockPredictionFreshness,
-  stockAgentLoggingParity,
   // youtube-clips
   youtubeClipsHttp,
   youtubeClipsPotProvider,
@@ -101,8 +89,6 @@ const CHECKS: CheckFn[] = [
   cloudpetHttp,
   cloudpetSchema,
   cloudpetTick,
-  // cc-web
-  ccWebHttp,
   // reno
   renoHttp,
   renoSchema,
