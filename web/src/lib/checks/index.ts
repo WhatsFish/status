@@ -27,7 +27,9 @@ import {
   youtubeClipsPotProvider,
   quitDiaryHttp,
   cloudpetHttp,
-  renoHttp,} from "./http";
+  renoHttp,
+  tradingSystemHttp,
+} from "./http";
 import { agentCostLoggingParity, recentSpend } from "./cost";
 import { youtubeClipsSchema } from "./youtube-clips";
 import { quitDiarySchema } from "./quit-diary";
@@ -36,6 +38,7 @@ import { renoSchema, renoRows } from "./reno";
 import { recentPageviews } from "./umami";
 import { goaccessReportFreshness } from "./goaccess";
 import { pgPing } from "./postgres";
+import { tradingSystemFreshness } from "./trading-system";
 
 const CHECKS: CheckFn[] = [
   // host
@@ -93,6 +96,9 @@ const CHECKS: CheckFn[] = [
   renoHttp,
   renoSchema,
   renoRows,
+  // trading-system
+  tradingSystemHttp,
+  tradingSystemFreshness,
 ];
 
 export async function runAllChecks(): Promise<CheckBundle> {
