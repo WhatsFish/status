@@ -49,6 +49,7 @@ type ResearchRow = {
   backtests: string;
   basis_symbols: string;
   basis_age_seconds: number | null;
+  shadow_age_seconds: number | null;
 };
 
 export const tradingSystemResearch: CheckFn = async () => {
@@ -59,7 +60,8 @@ export const tradingSystemResearch: CheckFn = async () => {
        (SELECT COUNT(*)::text FROM underlying_daily) AS daily_rows,
        (SELECT COUNT(*)::text FROM backtest_result) AS backtests,
        (SELECT COUNT(DISTINCT instrument)::text FROM basis_snapshot) AS basis_symbols,
-       (SELECT EXTRACT(EPOCH FROM (NOW() - MAX(ts)))::float8 FROM basis_snapshot) AS basis_age_seconds`,
+       (SELECT EXTRACT(EPOCH FROM (NOW() - MAX(ts)))::float8 FROM basis_snapshot) AS basis_age_seconds,
+       (SELECT EXTRACT(EPOCH FROM (NOW() - MAX(ts)))::float8 FROM shadow_equity_snapshot) AS shadow_age_seconds`,
   );
   const row = rows[0];
   const coverage =
@@ -69,11 +71,13 @@ export const tradingSystemResearch: CheckFn = async () => {
     Number(row.basis_symbols) >= 14;
   const basisFresh =
     row.basis_age_seconds !== null && row.basis_age_seconds < 1_200;
+  const shadowFresh =
+    row.shadow_age_seconds !== null && row.shadow_age_seconds < 2_700;
   return {
     id: "trading-system-research",
     group: "trading-system",
     name: "Underlying + research data",
-    status: !coverage ? "fail" : !basisFresh ? "warn" : "ok",
-    detail: `${row.symbols} symbols · ${row.daily_rows} daily rows · ${row.backtests} backtests · basis ${Math.floor(row.basis_age_seconds ?? 0)}s old`,
+    status: !coverage || !shadowFresh ? "fail" : !basisFresh ? "warn" : "ok",
+    detail: `${row.symbols} symbols · ${row.daily_rows} daily rows · ${row.backtests} backtests · basis ${Math.floor(row.basis_age_seconds ?? 0)}s · shadow ${Math.floor(row.shadow_age_seconds ?? 0)}s`,
   };
 };
