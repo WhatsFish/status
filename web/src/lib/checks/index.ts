@@ -38,7 +38,7 @@ import { renoSchema, renoRows } from "./reno";
 import { recentPageviews } from "./umami";
 import { goaccessReportFreshness } from "./goaccess";
 import { pgPing } from "./postgres";
-import { tradingSystemFreshness } from "./trading-system";
+import { tradingSystemFreshness, tradingSystemResearch } from "./trading-system";
 
 const CHECKS: CheckFn[] = [
   // host
@@ -99,6 +99,7 @@ const CHECKS: CheckFn[] = [
   // trading-system
   tradingSystemHttp,
   tradingSystemFreshness,
+  tradingSystemResearch,
 ];
 
 export async function runAllChecks(): Promise<CheckBundle> {

@@ -101,6 +101,13 @@ const JOBS: Job[] = [
     failAfterMs: 50 * H,
   },
   {
+    id: "trading-system-research",
+    name: "trading research refresh (22:30 UTC weekdays)",
+    schedule: "weekdays",
+    warnAfterMs: 4 * D,
+    failAfterMs: 6 * D,
+  },
+  {
     id: "tg-claude",
     name: "tg-claude bot liveness (every 1 min)",
     schedule: "continuous",
