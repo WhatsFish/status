@@ -75,7 +75,11 @@ export const tradingSystemResearch: CheckFn = async () => {
        (SELECT COUNT(*)::text FROM backtest_result) AS backtests,
        (SELECT COUNT(DISTINCT instrument)::text FROM basis_snapshot) AS basis_symbols,
        (SELECT EXTRACT(EPOCH FROM (NOW() - MAX(ts)))::float8 FROM basis_snapshot) AS basis_age_seconds,
-       (SELECT COUNT(*)::text FROM strategy_experiment) AS experiments,
+       (SELECT COUNT(*)::text FROM strategy_experiment
+        WHERE run_id = (
+          SELECT run_id FROM strategy_experiment
+          ORDER BY generated_at DESC LIMIT 1
+        )) AS experiments,
        (SELECT COUNT(*)::text FROM strategy_candidate) AS candidates,
        (SELECT EXTRACT(EPOCH FROM (NOW() - MAX(generated_at)))::float8
         FROM strategy_experiment) AS experiment_age_seconds,
@@ -85,10 +89,10 @@ export const tradingSystemResearch: CheckFn = async () => {
   );
   const row = rows[0];
   const coverage =
-    Number(row.symbols) >= 14 &&
-    Number(row.daily_rows) >= 14_000 &&
-    Number(row.backtests) >= 42 &&
-    Number(row.experiments) >= 400 &&
+    Number(row.symbols) >= 50 &&
+    Number(row.daily_rows) >= 50_000 &&
+    Number(row.backtests) >= 150 &&
+    Number(row.experiments) >= 10_000 &&
     Number(row.candidates) > 0 &&
     Number(row.basis_symbols) >= 14;
   const basisFresh =
