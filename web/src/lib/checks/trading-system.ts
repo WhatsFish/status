@@ -50,6 +50,9 @@ type ResearchRow = {
   basis_symbols: string;
   basis_age_seconds: number | null;
   shadow_age_seconds: number | null;
+  experiments: string;
+  candidates: string;
+  experiment_age_seconds: number | null;
 };
 
 export const tradingSystemResearch: CheckFn = async () => {
@@ -61,23 +64,37 @@ export const tradingSystemResearch: CheckFn = async () => {
        (SELECT COUNT(*)::text FROM backtest_result) AS backtests,
        (SELECT COUNT(DISTINCT instrument)::text FROM basis_snapshot) AS basis_symbols,
        (SELECT EXTRACT(EPOCH FROM (NOW() - MAX(ts)))::float8 FROM basis_snapshot) AS basis_age_seconds,
-       (SELECT EXTRACT(EPOCH FROM (NOW() - MAX(ts)))::float8 FROM shadow_equity_snapshot) AS shadow_age_seconds`,
+       (SELECT EXTRACT(EPOCH FROM (NOW() - MAX(ts)))::float8 FROM shadow_equity_snapshot) AS shadow_age_seconds,
+       (SELECT COUNT(*)::text FROM strategy_experiment) AS experiments,
+       (SELECT COUNT(*)::text FROM strategy_candidate) AS candidates,
+       (SELECT EXTRACT(EPOCH FROM (NOW() - MAX(generated_at)))::float8
+        FROM strategy_experiment) AS experiment_age_seconds`,
   );
   const row = rows[0];
   const coverage =
     Number(row.symbols) >= 14 &&
     Number(row.daily_rows) >= 14_000 &&
     Number(row.backtests) >= 42 &&
+    Number(row.experiments) >= 400 &&
+    Number(row.candidates) > 0 &&
     Number(row.basis_symbols) >= 14;
   const basisFresh =
     row.basis_age_seconds !== null && row.basis_age_seconds < 1_200;
   const shadowFresh =
     row.shadow_age_seconds !== null && row.shadow_age_seconds < 2_700;
+  const experimentsFresh =
+    row.experiment_age_seconds !== null &&
+    row.experiment_age_seconds < 4 * 24 * 60 * 60;
   return {
     id: "trading-system-research",
     group: "trading-system",
     name: "Underlying + research data",
-    status: !coverage || !shadowFresh ? "fail" : !basisFresh ? "warn" : "ok",
-    detail: `${row.symbols} symbols · ${row.daily_rows} daily rows · ${row.backtests} backtests · basis ${Math.floor(row.basis_age_seconds ?? 0)}s · shadow ${Math.floor(row.shadow_age_seconds ?? 0)}s`,
+    status:
+      !coverage || !shadowFresh || !experimentsFresh
+        ? "fail"
+        : !basisFresh
+          ? "warn"
+          : "ok",
+    detail: `${row.symbols} symbols · ${row.experiments} experiments · ${row.candidates} candidates · lab ${Math.floor((row.experiment_age_seconds ?? 0) / 60)}m · shadow ${Math.floor(row.shadow_age_seconds ?? 0)}s`,
   };
 };
