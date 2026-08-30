@@ -63,6 +63,8 @@ type ResearchRow = {
   experiments: string;
   candidates: string;
   experiment_age_seconds: number | null;
+  live_experiments: string;
+  closed_experiments: string;
 };
 
 export const tradingSystemResearch: CheckFn = async () => {
@@ -78,7 +80,10 @@ export const tradingSystemResearch: CheckFn = async () => {
        (SELECT COUNT(*)::text FROM strategy_experiment) AS experiments,
        (SELECT COUNT(*)::text FROM strategy_candidate) AS candidates,
        (SELECT EXTRACT(EPOCH FROM (NOW() - MAX(generated_at)))::float8
-        FROM strategy_experiment) AS experiment_age_seconds`,
+        FROM strategy_experiment) AS experiment_age_seconds,
+       (SELECT COUNT(*)::text FROM live_experiment) AS live_experiments,
+       (SELECT COUNT(*)::text FROM live_experiment
+        WHERE status = 'closed') AS closed_experiments`,
   );
   const row = rows[0];
   const coverage =
@@ -105,6 +110,6 @@ export const tradingSystemResearch: CheckFn = async () => {
         : !basisFresh
           ? "warn"
           : "ok",
-    detail: `${row.symbols} symbols · ${row.experiments} experiments · ${row.candidates} candidates · lab ${Math.floor((row.experiment_age_seconds ?? 0) / 60)}m · shadow ${Math.floor(row.shadow_age_seconds ?? 0)}s`,
+    detail: `${row.symbols} symbols · ${row.experiments} tests · ${row.candidates} candidates · live experience ${row.closed_experiments}/${row.live_experiments} closed · lab ${Math.floor((row.experiment_age_seconds ?? 0) / 60)}m`,
   };
 };
