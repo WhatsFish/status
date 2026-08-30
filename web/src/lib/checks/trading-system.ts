@@ -7,6 +7,8 @@ type HealthRow = {
   execution_enabled: string;
   candles: string;
   signals: string;
+  live_age_seconds: number | null;
+  live_status: string | null;
 };
 
 export const tradingSystemFreshness: CheckFn = async () => {
@@ -16,6 +18,10 @@ export const tradingSystemFreshness: CheckFn = async () => {
        EXTRACT(EPOCH FROM (NOW() - h.last_seen_at))::float8 AS age_seconds,
        h.status,
        COALESCE((SELECT value FROM system_setting WHERE key = 'execution_enabled'), 'missing') AS execution_enabled,
+       (SELECT EXTRACT(EPOCH FROM (NOW() - last_seen_at))::float8
+        FROM worker_heartbeat WHERE worker = 'live-controller') AS live_age_seconds,
+       (SELECT status FROM worker_heartbeat
+        WHERE worker = 'live-controller') AS live_status,
        (SELECT COUNT(*)::text FROM market_candle) AS candles,
        (SELECT COUNT(*)::text FROM strategy_signal) AS signals
      FROM worker_heartbeat h
@@ -34,12 +40,16 @@ export const tradingSystemFreshness: CheckFn = async () => {
   const row = rows[0];
   const healthy = row.status === "ok" && row.age_seconds < 180;
   const locked = row.execution_enabled === "false";
+  const liveHealthy =
+    row.live_status === "ok" &&
+    row.live_age_seconds !== null &&
+    row.live_age_seconds < 180;
   return {
     id: "trading-system-freshness",
     group: "trading-system",
     name: "Collector + execution lock",
-    status: !healthy ? "fail" : !locked ? "warn" : "ok",
-    detail: `${Math.floor(row.age_seconds)}s old · ${row.candles} candles · ${row.signals} signals · execution ${locked ? "locked" : "ENABLED"}`,
+    status: !healthy || (!locked && !liveHealthy) ? "fail" : "ok",
+    detail: `${Math.floor(row.age_seconds)}s old · ${row.candles} candles · ${row.signals} signals · execution ${locked ? "locked" : "LIVE"}${locked ? "" : ` · controller ${Math.floor(row.live_age_seconds ?? 0)}s`}`,
   };
 };
 
