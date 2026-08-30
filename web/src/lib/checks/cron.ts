@@ -108,13 +108,6 @@ const JOBS: Job[] = [
     failAfterMs: 6 * D,
   },
   {
-    id: "trading-system-shadow",
-    name: "trading shadow portfolio (*/15)",
-    schedule: "every 15 min",
-    warnAfterMs: 45 * M,
-    failAfterMs: 2 * H,
-  },
-  {
     id: "tg-claude",
     name: "tg-claude bot liveness (every 1 min)",
     schedule: "continuous",
