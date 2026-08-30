@@ -6,7 +6,7 @@ type HealthRow = {
   status: string;
   execution_enabled: string;
   candles: string;
-  signals: string;
+  markets: string;
   live_age_seconds: number | null;
   live_status: string | null;
 };
@@ -23,7 +23,8 @@ export const tradingSystemFreshness: CheckFn = async () => {
        (SELECT status FROM worker_heartbeat
         WHERE worker = 'live-controller') AS live_status,
        (SELECT COUNT(*)::text FROM market_candle) AS candles,
-       (SELECT COUNT(*)::text FROM strategy_signal) AS signals
+       (SELECT COUNT(DISTINCT instrument)::text FROM market_snapshot
+        WHERE ts > NOW() - INTERVAL '3 minutes') AS markets
      FROM worker_heartbeat h
      WHERE h.worker = 'collector'`,
   );
@@ -49,7 +50,7 @@ export const tradingSystemFreshness: CheckFn = async () => {
     group: "trading-system",
     name: "Collector + execution lock",
     status: !healthy || (!locked && !liveHealthy) ? "fail" : "ok",
-    detail: `${Math.floor(row.age_seconds)}s old · ${row.candles} candles · ${row.signals} signals · execution ${locked ? "locked" : "LIVE"}${locked ? "" : ` · controller ${Math.floor(row.live_age_seconds ?? 0)}s`}`,
+    detail: `${Math.floor(row.age_seconds)}s old · ${row.markets} markets · ${row.candles} candles · execution ${locked ? "locked" : "LIVE"}${locked ? "" : ` · controller ${Math.floor(row.live_age_seconds ?? 0)}s`}`,
   };
 };
 
