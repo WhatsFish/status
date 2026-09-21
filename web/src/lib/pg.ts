@@ -1,10 +1,19 @@
 import { Client, type QueryResultRow } from "pg";
 
-type DbName = "vpn" | "umami" | "cost" | "youtube-clips" | "quit-diary" | "cloudpet" | "reno" | "trading-system";
+type DbName = "vpn" | "umami" | "cost" | "youtube-clips" | "quit-diary" | "cloudpet" | "reno" | "trading-system" | "lift-log";
 
 function configFor(db: DbName) {
   const host = process.env.PG_HOST ?? "db";
   const port = parseInt(process.env.PG_PORT ?? "5432", 10);
+  if (db === "lift-log") {
+    return {
+      host,
+      port,
+      user: process.env.LIFT_PG_USER ?? "lift_log_monitor",
+      password: process.env.LIFT_PG_PASSWORD ?? "",
+      database: process.env.LIFT_PG_DB ?? "lift_log",
+    };
+  }
   if (db === "vpn") {
     return {
       host,
