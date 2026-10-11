@@ -21,6 +21,20 @@ const D = 24 * H;
 
 const JOBS: Job[] = [
   {
+    id: "our-days-backup",
+    name: "our-days encrypted backup",
+    schedule: "daily",
+    warnAfterMs: 36 * H,
+    failAfterMs: 60 * H,
+  },
+  {
+    id: "our-days",
+    name: "our-days import / publication worker",
+    schedule: "every 1 min",
+    warnAfterMs: 5 * M,
+    failAfterMs: 15 * M,
+  },
+  {
     id: "goaccess",
     name: "goaccess report (*/5)",
     schedule: "every 5 min",

@@ -76,6 +76,21 @@ export const youtubeClipsHttp = probe("youtube-clips-http", "youtube-clips", "Da
 export const quitDiaryHttp = probe("quit-diary-http", "quit-diary", "Landing (/quit-diary)", "/quit-diary");
 export const cloudpetHttp = probe("cloudpet-http", "cloudpet", "Landing (/cloudpet)", "/cloudpet");
 export const renoHttp = probe("reno-http", "reno", "Login (/reno/login)", "/reno/login");
+export const ourDaysHttp: CheckFn = async () => {
+  const response = await fetch(`https://${HOST}/our-days/api/health`, {
+    redirect: "manual",
+    signal: AbortSignal.timeout(5000),
+  });
+  const body: unknown = response.status === 200 ? await response.json() : null;
+  const healthy = typeof body === "object" && body !== null && "status" in body && body.status === "ok";
+  return {
+    id: "our-days-http",
+    group: "our-days",
+    name: "Web + database (/our-days)",
+    status: healthy ? "ok" : "fail",
+    detail: `HTTP ${response.status}`,
+  };
+};
 export const liftLogHttp: CheckFn = async () => {
   const response = await fetch(`https://${HOST}/lift-log/api/health`, {
     redirect: "manual",

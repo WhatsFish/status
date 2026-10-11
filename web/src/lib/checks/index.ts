@@ -30,7 +30,9 @@ import {
   renoHttp,
   tradingSystemHttp,
   liftLogHttp,
+  ourDaysHttp,
 } from "./http";
+import { ourDaysHealth } from "./our-days";
 import { liftLogStorage } from "./lift-log";
 import { agentCostLoggingParity, recentSpend } from "./cost";
 import { youtubeClipsSchema } from "./youtube-clips";
@@ -104,6 +106,8 @@ const CHECKS: CheckFn[] = [
   tradingSystemResearch,
   liftLogHttp,
   liftLogStorage,
+  ourDaysHttp,
+  ourDaysHealth,
 ];
 
 export async function runAllChecks(): Promise<CheckBundle> {
