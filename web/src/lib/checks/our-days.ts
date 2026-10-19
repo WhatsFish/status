@@ -25,6 +25,6 @@ export const ourDaysHealth: CheckFn = async () => {
       `${row.paused ? "Publication paused" : "Publication enabled"}; ` +
       `worker ${stale ? "stale" : "current"}${row.worker_error ? ` (${row.worker_error})` : ""}; ` +
       `stuck imports ${row.stuck_imports}; missed editions ${row.missed_editions}; ` +
-      `delivery attention ${row.delivery_attention}; scheduled next week ${row.next_week_count}`,
+      `delivery attention ${row.delivery_attention}; approved unused photos ${row.next_week_count}`,
   };
 };
