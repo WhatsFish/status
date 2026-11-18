@@ -89,6 +89,21 @@ export const ourDaysHttp: CheckFn = async () => {
     detail: `HTTP ${response.status}`,
   };
 };
+export const ieltsHttp: CheckFn = async () => {
+  const response = await fetch(`https://${HOST}/ielts/api/health`, {
+    redirect: "manual",
+    signal: AbortSignal.timeout(5000),
+  });
+  const body: unknown = response.status === 200 ? await response.json() : null;
+  const healthy = typeof body === "object" && body !== null && "status" in body && body.status === "ok";
+  return {
+    id: "ielts-http",
+    group: "ielts",
+    name: "Web + database (/ielts)",
+    status: healthy ? "ok" : "fail",
+    detail: `HTTP ${response.status}`,
+  };
+};
 export const liftLogHttp: CheckFn = async () => {
   const response = await fetch(`https://${HOST}/lift-log/api/health`, {
     redirect: "manual",

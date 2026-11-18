@@ -1,10 +1,19 @@
 import { Client, type QueryResultRow } from "pg";
 
-type DbName = "vpn" | "umami" | "cost" | "youtube-clips" | "quit-diary" | "cloudpet" | "reno" | "trading-system" | "lift-log" | "our-days";
+type DbName = "vpn" | "umami" | "cost" | "youtube-clips" | "quit-diary" | "cloudpet" | "reno" | "trading-system" | "lift-log" | "our-days" | "ielts";
 
 function configFor(db: DbName) {
   const host = process.env.PG_HOST ?? "db";
   const port = parseInt(process.env.PG_PORT ?? "5432", 10);
+  if (db === "ielts") {
+    return {
+      host,
+      port,
+      user: process.env.IELTS_PG_USER ?? "ielts_monitor",
+      password: process.env.IELTS_PG_PASSWORD ?? "",
+      database: process.env.IELTS_PG_DB ?? "ielts",
+    };
+  }
   if (db === "our-days") {
     return {
       host,

@@ -29,8 +29,10 @@ import {
   tradingSystemHttp,
   liftLogHttp,
   ourDaysHttp,
+  ieltsHttp,
 } from "./http";
 import { ourDaysHealth } from "./our-days";
+import { ieltsStorage } from "./ielts";
 import { liftLogStorage } from "./lift-log";
 import { agentCostLoggingParity, recentSpend } from "./cost";
 import { youtubeClipsSchema } from "./youtube-clips";
@@ -96,6 +98,8 @@ const CHECKS: CheckFn[] = [
   liftLogStorage,
   ourDaysHttp,
   ourDaysHealth,
+  ieltsHttp,
+  ieltsStorage,
 ];
 
 export async function runAllChecks(): Promise<CheckBundle> {

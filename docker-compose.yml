@@ -3,7 +3,9 @@ services:
     build: ./web
     image: status-web
     restart: unless-stopped
-    env_file: .env
+    env_file:
+      - .env
+      - /home/liharr/.config/ielts-monitor.env
     environment:
       DIGEST_DIR: /data/ai-feed/digest
       HEARTBEAT_DIR: /data/heartbeats
