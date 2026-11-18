@@ -35,13 +35,6 @@ const JOBS: Job[] = [
     failAfterMs: 15 * M,
   },
   {
-    id: "goaccess",
-    name: "goaccess report (*/5)",
-    schedule: "every 5 min",
-    warnAfterMs: 15 * M,
-    failAfterMs: 30 * M,
-  },
-  {
     id: "ai-feed-agent",
     name: "ai-feed agent (00:13 / 12:13 UTC)",
     schedule: "every 12h",

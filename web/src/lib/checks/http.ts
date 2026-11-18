@@ -65,7 +65,6 @@ export const aiFeedHttp = probe("ai-feed-http", "ai-feed", "Web (/feed)", "/feed
 // RSSHub bridge — fetch.py routes Anthropic Research/Engineering/Red Team
 // and OpenAI through this. If it's down, those four sources fail every run.
 export const aiFeedRsshubHttp = internalProbe("ai-feed-rsshub-http", "ai-feed", "RSSHub bridge", "http://ai-feed-rsshub-1:1200/healthz");
-export const aiPlaygroundHttp = probe("ai-playground-http", "ai-playground", "Web (/chat)", "/chat");
 export const vpnMonitorHttp = probe("vpn-monitor-http", "vpn", "Dashboard (/vpn)", "/vpn");
 export const umamiHttp = probe("umami-http", "umami", "Dashboard (/umami)", "/umami");
 export const umamiScript = probe("umami-script", "umami", "Tracking script (/umami/script.js)", "/umami/script.js");
@@ -75,7 +74,6 @@ export const costHttp = probe("cost-http", "cost", "Dashboard (/cost)", "/cost")
 export const youtubeClipsHttp = probe("youtube-clips-http", "youtube-clips", "Dashboard (/youtube-clips)", "/youtube-clips");
 export const quitDiaryHttp = probe("quit-diary-http", "quit-diary", "Landing (/quit-diary)", "/quit-diary");
 export const cloudpetHttp = probe("cloudpet-http", "cloudpet", "Landing (/cloudpet)", "/cloudpet");
-export const renoHttp = probe("reno-http", "reno", "Login (/reno/login)", "/reno/login");
 export const ourDaysHttp: CheckFn = async () => {
   const response = await fetch(`https://${HOST}/our-days/api/health`, {
     redirect: "manual",

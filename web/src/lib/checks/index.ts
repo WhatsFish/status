@@ -16,7 +16,6 @@ import { hysteriaPipeline, activeConnections } from "./vpn";
 import {
   aiFeedHttp,
   aiFeedRsshubHttp,
-  aiPlaygroundHttp,
   vpnMonitorHttp,
   umamiHttp,
   umamiScript,
@@ -27,7 +26,6 @@ import {
   youtubeClipsPotProvider,
   quitDiaryHttp,
   cloudpetHttp,
-  renoHttp,
   tradingSystemHttp,
   liftLogHttp,
   ourDaysHttp,
@@ -38,9 +36,7 @@ import { agentCostLoggingParity, recentSpend } from "./cost";
 import { youtubeClipsSchema } from "./youtube-clips";
 import { quitDiarySchema } from "./quit-diary";
 import { cloudpetSchema, cloudpetTick } from "./cloudpet";
-import { renoSchema, renoRows } from "./reno";
 import { recentPageviews } from "./umami";
-import { goaccessReportFreshness } from "./goaccess";
 import { pgPing } from "./postgres";
 import { tradingSystemFreshness, tradingSystemResearch } from "./trading-system";
 
@@ -71,14 +67,10 @@ const CHECKS: CheckFn[] = [
   hysteriaPipeline,
   activeConnections,
   vpnMonitorHttp,
-  // ai-playground
-  aiPlaygroundHttp,
   // umami
   umamiHttp,
   umamiScript,
   recentPageviews,
-  // traffic
-  goaccessReportFreshness,
   // myblog
   myblogHttp,
   // cost
@@ -96,10 +88,6 @@ const CHECKS: CheckFn[] = [
   cloudpetHttp,
   cloudpetSchema,
   cloudpetTick,
-  // reno
-  renoHttp,
-  renoSchema,
-  renoRows,
   // trading-system
   tradingSystemHttp,
   tradingSystemFreshness,
